@@ -16,3 +16,29 @@ az vm create \
    --image $image \
    --admin-username $adminUsername \
    --admin-password $adminPassword
+
+
+# Variables
+resourceGroup="VM-one"
+location="eastus"  # Azure region
+vmSize="Standard_DS2_v2"  # You can choose an appropriate VM size
+adminUsername="ichigo"
+adminPassword="Kurosakiichigo1@"
+image="UbuntuLTS"
+
+# Create three VMs with unique names
+for i in {1..3}; do
+    vmName="MyVM$i"
+    
+    # Create the VM
+    az vm create \
+       --resource-group $resourceGroup \
+       --name $vmName \
+       --location $location \
+       --size $vmSize \
+       --image $image \
+       --admin-username $adminUsername \
+       --admin-password $adminPassword
+
+    echo "Created VM: $vmName"
+done

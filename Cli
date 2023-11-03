@@ -1,0 +1,18 @@
+# Variables
+resourceGroup="YourResourceGroup"
+vmName="NewVMName"
+location="East US"
+vmSize="Standard_DS2_v2"
+adminUsername="YourUsername"
+adminPassword="YourPassword"
+image="UbuntuLTS"
+
+# Create the VM
+az vm create \
+   --resource-group $resourceGroup \
+   --name $vmName \
+   --location $location \
+   --size $vmSize \
+   --image $image \
+   --admin-username $adminUsername \
+   --admin-password $adminPassword

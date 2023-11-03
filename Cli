@@ -42,3 +42,140 @@ for i in {1..3}; do
 
     echo "Created VM: $vmName"
 done
+
+
+Querying the image of 'Canonical:UbuntuServer:20.04-LTS:latest' failed for an error 'Artifact: VMImage was not found.'. Configuring plan settings will be skipped
+Azure Error: InvalidTemplateDeployment
+Message: The template deployment failed with multiple errors. Please see details for more information.
+Exception Details:
+        Error Code: RequestDisallowedByPolicy
+        Message: Resource 'MyVM3PublicIP' was disallowed by policy. Policy identifiers: '[{"policyAssignment":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1"},"policyDefinition":{"name":"AzureB2C_publicIPAddresses","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_publicIPAddresses"},"policySetDefinition":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C"}}]'.
+        Target: MyVM3PublicIP
+        Additional Information:
+                Type: PolicyViolation
+                Info: {
+                    "evaluationDetails": {
+                        "evaluatedExpressions": [
+                            {
+                                "result": "True",
+                                "expressionKind": "Field",
+                                "expression": "type",
+                                "path": "type",
+                                "expressionValue": "Microsoft.Network/publicIPAddresses",
+                                "targetValue": "Microsoft.Network/publicIPAddresses",
+                                "operator": "Equals"
+                            },
+                            {
+                                "result": "False",
+                                "expressionKind": "Field",
+                                "expression": "Microsoft.Network/publicIPAddresses/sku.name",
+                                "path": "sku.name",
+                                "targetValue": [
+                                    "Basic",
+                                    "Standard"
+                                ],
+                                "operator": "In"
+                            }
+                        ]
+                    },
+                    "policyDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_publicIPAddresses",
+                    "policySetDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C",
+                    "policyDefinitionReferenceId": "7891300400102015170",
+                    "policySetDefinitionName": "AzureB2C",
+                    "policySetDefinitionDisplayName": "AzureB2C",
+                    "policyDefinitionName": "AzureB2C_publicIPAddresses",
+                    "policyDefinitionDisplayName": "AzureB2C_publicIPAddresses",
+                    "policyDefinitionEffect": "deny",
+                    "policyAssignmentId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentName": "abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentDisplayName": "AzureB2C",
+                    "policyAssignmentScope": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea",
+                    "policyAssignmentParameters": {},
+                    "policyExemptionIds": []
+                }
+        Error Code: RequestDisallowedByPolicy
+        Message: Resource 'MyVM3' was disallowed by policy. Policy identifiers: '[{"policyAssignment":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1"},"policyDefinition":{"name":"AzureB2C_AllowStdB2msVMSize","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_AllowStdB2msVMSize"},"policySetDefinition":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C"}},{"policyAssignment":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1"},"policyDefinition":{"name":"AzureB2C_AllowStdLRSOSDISK","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_AllowStdLRSOSDISK"},"policySetDefinition":{"name":"AzureB2C","id":"/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C"}}]'.
+        Target: MyVM3
+        Additional Information:
+                Type: PolicyViolation
+                Info: {
+                    "evaluationDetails": {
+                        "evaluatedExpressions": [
+                            {
+                                "result": "True",
+                                "expressionKind": "Field",
+                                "expression": "type",
+                                "path": "type",
+                                "expressionValue": "Microsoft.Compute/virtualMachines",
+                                "targetValue": "Microsoft.Compute/virtualMachines",
+                                "operator": "Equals"
+                            },
+                            {
+                                "result": "False",
+                                "expressionKind": "Field",
+                                "expression": "Microsoft.Compute/virtualMachines/sku.name",
+                                "path": "properties.hardwareProfile.vmSize",
+                                "expressionValue": "Standard_DS2_v2",
+                                "targetValue": [
+                                    "Standard_B2ms",
+                                    "Standard_B1ms"
+                                ],
+                                "operator": "In"
+                            }
+                        ]
+                    },
+                    "policyDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_AllowStdB2msVMSize",
+                    "policySetDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C",
+                    "policyDefinitionReferenceId": "14078799156788134879",
+                    "policySetDefinitionName": "AzureB2C",
+                    "policySetDefinitionDisplayName": "AzureB2C",
+                    "policyDefinitionName": "AzureB2C_AllowStdB2msVMSize",
+                    "policyDefinitionDisplayName": "AzureB2C_AllowStdB2msVMSize",
+                    "policyDefinitionEffect": "deny",
+                    "policyAssignmentId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentName": "abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentDisplayName": "AzureB2C",
+                    "policyAssignmentScope": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea",
+                    "policyAssignmentParameters": {},
+                    "policyExemptionIds": []
+                }
+                Type: PolicyViolation
+                Info: {
+                    "evaluationDetails": {
+                        "evaluatedExpressions": [
+                            {
+                                "result": "True",
+                                "expressionKind": "Field",
+                                "expression": "type",
+                                "path": "type",
+                                "expressionValue": "Microsoft.Compute/virtualMachines",
+                                "targetValue": "Microsoft.Compute/virtualMachines",
+                                "operator": "Equals"
+                            },
+                            {
+                                "result": "False",
+                                "expressionKind": "Field",
+                                "expression": "Microsoft.Compute/virtualMachines/storageProfile.osDisk.managedDisk.storageAccountType",
+                                "path": "properties.storageProfile.osDisk.managedDisk.storageAccountType",
+                                "targetValue": [
+                                    "Standard_LRS"
+                                ],
+                                "operator": "In"
+                            }
+                        ]
+                    },
+                    "policyDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyDefinitions/AzureB2C_AllowStdLRSOSDISK",
+                    "policySetDefinitionId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policySetDefinitions/AzureB2C",
+                    "policyDefinitionReferenceId": "194735573967410387",
+                    "policySetDefinitionName": "AzureB2C",
+                    "policySetDefinitionDisplayName": "AzureB2C",
+                    "policyDefinitionName": "AzureB2C_AllowStdLRSOSDISK",
+                    "policyDefinitionDisplayName": "AzureB2C_AllowStdLRSOSDISK",
+                    "policyDefinitionEffect": "deny",
+                    "policyAssignmentId": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea/providers/Microsoft.Authorization/policyAssignments/abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentName": "abe4a773-5183-402a-b286-04d7f9b6fce1",
+                    "policyAssignmentDisplayName": "AzureB2C",
+                    "policyAssignmentScope": "/subscriptions/117381bc-f65b-44fe-9a55-6cf9bfbf67ea",
+                    "policyAssignmentParameters": {},
+                    "policyExemptionIds": []
+                }

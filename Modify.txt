@@ -88,3 +88,47 @@ Now you can access your Tomcat server with the IP address and the port you speci
 Your Tomcat server should now be running on the specified port with the custom index.html file.
 
 Please make sure to replace your_server_ip and the port number with the actual values you want to use.
+
+
+ 1  sudo yum install fontconfig java-17-openjdk -y
+    2  yu install vim wget
+    3  yum install vim wget
+    4  wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.15/bin/apache-tomcat-10.1.15.tar.gz
+    5  tar xvzf apache-tomcat-10.1.15.tar.gz
+    6  cd /opt/tomcat/bin
+    7  ls
+    8  cd apache-tomcat-10.1.15
+    9  cd /opt/tomcat/bin
+   10  ls
+   11  cd /opt/tomcat
+   12  ls
+   13  cd conf
+   14  ls
+   15  cd
+   16  cd apache-tomcat-10.1.15
+   17  cd bin
+   18  ./catalina.sh version
+   19  cd
+   20  cd apache-tomcat-10.1.15
+   21  ls
+   22  cd conf
+   23  .server.xml
+   24  ./server.xml.sh
+   25  ./server.xml
+   26  cd
+   27  mkdir /opt/tomcat
+   28  ls
+   29  rm apache-tomcat-10.1.15  apache-tomcat-10.1.15.tar.gz
+   30  cd /opt/tomcat
+   31  wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.15/bin/apache-tomcat-10.1.15.tar.gz
+   32  tar xvzf apache-tomcat-10.1.15.tar.gz
+   33  cd bin
+   34  ls
+   35  cd /opt/tomcat
+   36  ./catalina.sh version
+   37  cd apache-tomcat-10.1.15
+   38  cd bin
+   39  ./catalina.sh version
+   40  systemctl start tomcat
+   41  ./startup.sh
+   42  history

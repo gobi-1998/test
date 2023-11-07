@@ -33,3 +33,33 @@ resource "aws_instance" "newweb" {
    19  terraform apply
    20  vim hello.tf
    21  terraform apply
+
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('Your-AWS-Access-Key')
+        AWS_SECRET_ACCESS_KEY = credentials('Your-AWS-Secret-Key')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Terraform') {
+            steps {
+                script {
+                    // Run Terraform commands using AWS credentials
+                    sh 'cd /path/to/terraform/scripts'
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}
+
+

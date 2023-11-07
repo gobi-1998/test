@@ -63,3 +63,35 @@ pipeline {
 }
 
 
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('Your-AWS-Access-Key')
+        AWS_SECRET_ACCESS_KEY = credentials('Your-AWS-Secret-Key')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                script {
+                    // Clone the GitHub repository with Terraform scripts
+                    sh 'git clone https://github.com/yourusername/your-terraform-repo.git /path/to/clone'
+                }
+            }
+        }
+
+        stage('Terraform') {
+            steps {
+                script {
+                    // Run Terraform commands using AWS credentials
+                    sh 'cd /path/to/clone'
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
+}
+
+

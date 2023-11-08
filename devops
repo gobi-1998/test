@@ -331,3 +331,19 @@ resource "aws_route_table_association" "private-asso" {
   subnet_id      = aws_subnet.private-subnet.id
   route_table_id = aws_route_table.pri-rt.id
 }
+
+ Error: creating EC2 Instance: InvalidParameterCombination: The parameter groupName cannot be used with the parameter subnet
+│       status code: 400, request id: c67264a2-67c4-40b5-a85d-cf1259dbcc9f
+│
+│   with aws_instance.sanjay-server,
+│   on proj.tf line 91, in resource "aws_instance" "sanjay-server":
+│   91: resource "aws_instance" "sanjay-server" {
+│
+╵
+╷
+│ Error: creating EC2 Instance: InvalidParameterCombination: The parameter groupName cannot be used with the parameter subnet
+│       status code: 400, request id: b70d82cf-c0a4-4867-9769-0b6030be6dd3
+│
+│   with aws_instance.gautam-server,
+│   on proj.tf line 111, in resource "aws_instance" "gautam-server":
+│  111: resource "aws_instance" "gautam-server" {

@@ -325,3 +325,155 @@ resource "aws_route_table_association" "private-asso1" {
   route_table_id = aws_route_table.pri-rt1.id
 }
 
+
+provider "aws" {
+  region = "us-east-1"  # Replace with your desired AWS region
+}
+
+# VPC
+resource "aws_vpc" "luffy-vpc" {
+  cidr_block = "10.0.0.0/16"
+}
+
+# Subnets
+resource "aws_subnet" "public-subnet1" {
+  vpc_id     = aws_vpc.luffy-vpc.id
+  cidr_block = "10.0.0.0/24"
+
+  tags = {
+    Name = "Public-subnet1"
+  }
+}
+
+resource "aws_subnet" "private-subnet1" {
+  vpc_id     = aws_vpc.luffy-vpc.id
+  cidr_block = "10.0.1.0/24"
+
+  tags = {
+    Name = "Private-subnet1"
+  }
+}
+
+# Security Group
+resource "aws_security_group" "luffy_access" {
+  name        = "luffy_access"
+  description = "Allow SSH and HTTP"
+
+  # Ingress rules
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Egress rule allowing all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+# Internet Gateway
+resource "aws_internet_gateway" "test-igw1" {
+  vpc_id = aws_vpc.luffy-vpc.id
+
+  tags = {
+    Name = "test-igw1"
+  }
+}
+
+# Public Route Table
+resource "aws_route_table" "public-rt1" {
+  vpc_id = aws_vpc.luffy-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.test-igw1.id
+  }
+
+  tags = {
+    Name = "public-rt1"
+  }
+}
+
+# Route Table Association
+resource "aws_route_table_association" "public-asso1" {
+  subnet_id      = aws_subnet.public-subnet1.id
+  route_table_id = aws_route_table.public-rt1.id
+}
+
+# SSH Key Pair
+resource "aws_key_pair" "ltitestkey" {
+  key_name   = "ltitestkey"
+  public_key = "YOUR_SSH_PUBLIC_KEY"  # Replace with your SSH public key
+}
+
+# EC2 Instances
+resource "aws_instance" "ichigo-server" {
+  ami           = "ami-05c13eab67c5d8861"
+  subnet_id     = aws_subnet.public-subnet1.id
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.ltitestkey.key_name
+
+  tags = {
+    Name     = "test-World1"
+    Stage    = "testing1"
+    Location = "chennai1"
+  }
+}
+
+resource "aws_instance" "naruto-server" {
+  ami           = "ami-05c13eab67c5d8861"
+  subnet_id     = aws_subnet.private-subnet1.id
+  instance_type = "t2.micro"
+  key_name      = aws_key_pair.ltitestkey.key_name
+
+  tags = {
+    Name     = "gautam-World1"
+    Stage    = "stage-base1"
+    Location = "delhi1"
+  }
+}
+
+# Elastic IPs
+resource "aws_eip" "luffy-ec2-eip" {
+  instance = aws_instance.ichigo-server.id
+}
+
+resource "aws_eip" "naruto_nat-eip" {}
+
+# NAT Gateway
+resource "aws_nat_gateway" "my-ngw1" {
+  allocation_id = aws_eip.naruto_nat-eip.id
+  subnet_id     = aws_subnet.public-subnet1.id
+}
+
+# Private Route Table
+resource "aws_route_table" "pri-rt1" {
+  vpc_id = aws_vpc.luffy-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_nat_gateway.my-ngw1.id
+  }
+
+  tags = {
+    Name = "pri-rt1"
+  }
+}
+
+# Route Table Association for Private Subnet
+resource "aws_route_table_association" "private-asso1" {
+  subnet_id      = aws_subnet.private-subnet1.id
+  route_table_id = aws_route_table.pri-rt1.id
+}

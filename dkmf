@@ -1,4 +1,4 @@
-╷
+crr╷
 │ Error: Unsupported block type
 │
 │   on ruban.tf line 130, in resource "aws_instance" "naruto-server":
@@ -476,4 +476,32 @@ resource "aws_route_table" "pri-rt1" {
 resource "aws_route_table_association" "private-asso1" {
   subnet_id      = aws_subnet.private-subnet1.id
   route_table_id = aws_route_table.pri-rt1.id
+}
+
+
+pipeline {
+    agent any
+
+    environment {
+        AWS_ACCESS_KEY_ID     = credentials('aws-credentials').AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials').AWS_SECRET_ACCESS_KEY
+    }
+
+    stages {
+        stage('Terraform Init') {
+            steps {
+                script {
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                script {
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+    }
 }

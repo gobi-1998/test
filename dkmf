@@ -31,3 +31,49 @@ WorkflowScript: 4: unexpected char: '#' @ line 4, column 1.
 	at hudson.model.ResourceController.execute(ResourceController.java:101)
 	at hudson.model.Executor.run(Executor.java:442)
 Finished: FAILURE
+
+pipeline {
+    agent any
+
+    
+        
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+    
+        stage('Terraform Init') {
+            steps {
+                // Navigate to the directory where your Terraform script is located
+                dir('proj.tf') {
+                    // Initialize Terraform
+                    sh 'terraform init'
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                // Navigate to the directory where your Terraform script is located
+                dir('proj.tf') {
+                    // Apply Terraform changes (you may need to provide any necessary variables)
+                    sh 'terraform apply -auto-approve'
+                }
+            }
+        }
+
+        stage('Terraform Destroy') {
+            steps {
+                // Navigate to the directory where your Terraform script is located
+                dir('proj.tf') {
+                    // Destroy Terraform resources (optional, only if needed)
+                    sh 'terraform destroy -auto-approve'
+                }
+            }
+        }
+    }
+}
